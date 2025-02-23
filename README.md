@@ -218,3 +218,148 @@ if __name__ == "__main__":
         cv2.destroyAllWindows()
 
 ```
+
+## Calibrating the camera
+
+Print your checker board on a A4 paper or A3 paper, and make sure you measure the size of each square as a precaution
+In this example i displayed the checkerboard on a display and measured the square size. 
+
+```python
+#stereo calibration
+#determining intrinsic and extrinsic parameters of the camera
+
+import cv2
+import numpy as np
+import time
+import threading
+
+class StereoCalibrator:
+    def __init__(self, left_id=0, right_id=1):
+        self.left_cam = cv2.VideoCapture(left_id)
+        self.right_cam = cv2.VideoCapture(right_id)
+
+        # Set camera parameters
+        for cam in [self.left_cam, self.right_cam]:
+            cam.set(cv2.CAP_PROP_FRAME_WIDTH, 960)
+            cam.set(cv2.CAP_PROP_FRAME_HEIGHT, 540)
+            cam.set(cv2.CAP_PROP_FPS, 30)
+
+        # Calibration parameters
+        self.chessboard_size = (10, 7)  # Interior points
+        self.square_size = 0.0357  # meters
+
+        # Arrays to store calibration points
+        self.objpoints = []  # 3D points in real world space
+        self.left_imgpoints = []  # 2D points in left image
+        self.right_imgpoints = []  # 2D points in right image
+
+        # Prepare object points (0,0,0), (1,0,0), (2,0,0)...
+        self.objp = np.zeros((self.chessboard_size[0] * self.chessboard_size[1], 3), np.float32)
+        self.objp[:,:2] = np.mgrid[0:self.chessboard_size[0], 0:self.chessboard_size[1]].T.reshape(-1,2)
+        self.objp *= self.square_size
+
+        self.frame_count = 0
+        self.required_frames = 20
+
+    def find_chessboard(self, img):
+        gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+        ret, corners = cv2.findChessboardCorners(gray, self.chessboard_size, None)
+
+        if ret:
+            criteria = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 30, 0.001)
+            corners = cv2.cornerSubPix(gray, corners, (11,11), (-1,-1), criteria)
+            # Draw corners
+            cv2.drawChessboardCorners(img, self.chessboard_size, corners, ret)
+
+        return ret, corners
+
+    def capture_and_calibrate(self):
+        print("Starting calibration...")
+        print("Press 'c' to capture a frame when chessboard is visible")
+        print("Press 'q' to quit")
+
+        while True:
+            # Capture frames
+            ret_left, left_frame = self.left_cam.read()
+            ret_right, right_frame = self.right_cam.read()
+
+            if not (ret_left and ret_right):
+                print("Failed to capture frames")
+                continue
+
+            # Create copies for drawing
+            left_display = left_frame.copy()
+            right_display = right_frame.copy()
+
+            # Find chessboard corners
+            left_found, left_corners = self.find_chessboard(left_display)
+            right_found, right_corners = self.find_chessboard(right_display)
+
+            # Display frames count
+            cv2.putText(left_display, f"Captured: {self.frame_count}/{self.required_frames}",
+                      (10, 30), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 255, 0), 2)
+
+            # Combine frames
+            combined = np.hstack((left_display, right_display))
+            cv2.imshow('Stereo Calibration', combined)
+
+            key = cv2.waitKey(1) & 0xFF
+            if key == ord('q'):
+                break
+            elif key == ord('c') and left_found and right_found:
+                self.objpoints.append(self.objp)
+                self.left_imgpoints.append(left_corners)
+                self.right_imgpoints.append(right_corners)
+                self.frame_count += 1
+                print(f"Captured frame {self.frame_count}/{self.required_frames}")
+
+                if self.frame_count >= self.required_frames:
+                    self.perform_calibration()
+                    break
+
+        cv2.destroyAllWindows()
+        self.left_cam.release()
+        self.right_cam.release()
+
+    def perform_calibration(self):
+        print("\nPerforming calibration...")
+        img_size = (960, 540)
+
+        # Calibrate left camera
+        ret_left, mtx_left, dist_left, rvecs_left, tvecs_left = cv2.calibrateCamera(
+            self.objpoints, self.left_imgpoints, img_size, None, None)
+
+        # Calibrate right camera
+        ret_right, mtx_right, dist_right, rvecs_right, tvecs_right = cv2.calibrateCamera(
+            self.objpoints, self.right_imgpoints, img_size, None, None)
+
+        # Stereo calibration
+        flags = cv2.CALIB_FIX_INTRINSIC
+        criteria_stereo = (cv2.TERM_CRITERIA_EPS + cv2.TERM_CRITERIA_MAX_ITER, 100, 1e-5)
+
+        ret_stereo, mtx_left, dist_left, mtx_right, dist_right, R, T, E, F = cv2.stereoCalibrate(
+            self.objpoints, self.left_imgpoints, self.right_imgpoints,
+            mtx_left, dist_left, mtx_right, dist_right, img_size,
+            criteria=criteria_stereo, flags=flags)
+
+        # Calculate rectification parameters
+        R1, R2, P1, P2, Q, roi_left, roi_right = cv2.stereoRectify(
+            mtx_left, dist_left, mtx_right, dist_right, img_size, R, T)
+
+        print("\nCalibration complete!")
+        print(f"Stereo calibration RMS error: {ret_stereo}")
+
+        # Save all calibration parameters
+        np.savez('stereo_calibration.npz',
+                 mtx_left=mtx_left, dist_left=dist_left,
+                 mtx_right=mtx_right, dist_right=dist_right,
+                 R=R, T=T, E=E, F=F,
+                 R1=R1, R2=R2, P1=P1, P2=P2, Q=Q)
+
+        print("\nCalibration parameters saved to 'stereo_calibration.npz'")
+
+if __name__ == "__main__":
+    calibrator = StereoCalibrator(left_id=0, right_id=1)
+    calibrator.capture_and_calibrate()
+```
+
