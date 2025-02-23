@@ -387,21 +387,10 @@ for key in calib_data.files:
 ```
 ### Parameters in the npz file
 
-1. **Left Camera Intrinsic Matrix (mtx_left):**  
-[[454.32, 0.00, 315.26], [ 0.00, 455.83, 172.96], [ 0.00, 0.00, 1.00]]
-Contains focal lengths (fx, fy) and the principal point (cx, cy).  
-- fx ≈ 454.32  
-- fy ≈ 455.83  
-- (cx ≈ 315.26, cy ≈ 172.96)
+<div style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
 
-2. **Left Camera Distortion Coefficients (dist_left):**  
-[[ 0.0462, 0.3263, -0.0034, -0.0013, -1.3461]]
+**Stereo Camera Calibration Parameters**
 
-Represents the distortion coefficients for lens correction.  
-- **Radial:** k1 ≈ 0.0462, k2 ≈ 0.3263, k3 ≈ -1.3461  
-- **Tangential:** p1 ≈ -0.0034, p2 ≈ -0.0013
-
-3. **Rotation Matrix (R):**  
-[[ 0.9999, -0.0026, -0.0056], [ 0.0027, 0.9998, 0.0187], [ 0.0055, -0.0188, 0.9998]]
+**Left Camera Intrinsic Matrix (mtx_left):**  
 
 
