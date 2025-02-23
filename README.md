@@ -60,7 +60,7 @@ Smaller baseline:
 - BUT reduced depth resolution for far objects
 - AND more sensitive to calibration errors
 
-=====================================================================================================
+=====================================================================================
 In this project i have used a classic stereovision approach that estimates depth through stereo matching and triangulation. Here is the basic concept
 
 1. Stereo matching (semi global block matchin - SGBM)
