@@ -27,6 +27,8 @@ Print this on a A4 paper and double check the measurement of the square before p
 Here it is important to position your cameras in nearly same horizontal and vertical alignment to prevent any form of calibration errors. 
 (Note - There are always inaccuracies when using standard consumer webcameras. but if you use industrial grade cameras with hardware synchronization, you can get a very accurate result)
 
+
+
 ## Baseline distance between the camera's optical centers
 
 <img src="images/baseline.png" alt="Alt text" width="800">
@@ -44,5 +46,15 @@ where:
 - **B** is the baseline distance,
 - **d** is the disparity.
 
-A larger baseline increases disparity for distant objects, improving measurement accuracy, while a smaller baseline is often better for close-range applications.
+Better depth resolution for distant objects
+Wider field of view
+BUT harder to find corresponding points between images due to larger differences in perspective
+AND larger minimum measurable distance (blind spot close to cameras)
 
+
+Smaller baseline:
+
+Better for measuring depth of closer objects
+Easier to find corresponding points (better matching)
+BUT reduced depth resolution for far objects
+AND more sensitive to calibration errors
