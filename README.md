@@ -18,6 +18,7 @@ You can follow this youtube channel to understand the mathematics behind camera 
 
 [![My YouTube Channel](images/calb.png)](https://www.youtube.com/watch?v=S-UHiFsn-GI&list=PL2zRqk16wsdoCCLpou-dGo7QQNks1Ppzo)
 
-Checkerboard i used for the calibration - 10x7 squares with 0.25mm size
+Checkerboard i used for the calibration - 10x7 squares with 0.25mm size. 
+Print this on a A4 paper and double check the measurement of the square before proceeding to calibration!
 
 <img src="images/Checkerboard-A4-25mm-10x7 (1).jpg" alt="Alt text" width="500">
