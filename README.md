@@ -396,5 +396,59 @@ for key in calib_data.files:
 ```
 Contains focal lengths (fx, fy) and principal point (cx, cy). fx≈454.32, fy≈455.83 are focal lengths in pixels. (cx≈315.26, cy≈172.96) is the optical center.
 
+2. Left Camera Distortion Coefficients (dist_left)
+```text
+[[ 0.0462  0.3263  -0.0034  -0.0013  -1.3461]]
+```
+Represents radial (k1≈0.0462, k2≈0.3263, k3≈-1.3461) and tangential (p1≈-0.0034, p2≈-0.0013) distortion coefficients for lens correction.
 
+3. Right camera Intrisic matrix (mtx_right)
 
+ ```text
+[[459.07797732   0.         318.22673448]
+ [  0.         460.32619966 176.25719036]
+ [  0.           0.           1.        ]]
+```
+
+4. Right camera distortion coefficient (dist_right)
+```text
+ [[ 5.93181767e-02  1.72459459e-01 -5.50332430e-04  2.21879959e-03
+  -8.69918577e-01]]
+```
+5. Rotation Matrix (R)
+```text
+[[ 0.9999  -0.0026  -0.0056]
+ [ 0.0027   0.9998   0.0187]
+ [ 0.0055  -0.0188   0.9998]]
+```
+Describes the rotation between left and right cameras. Values close to identity matrix indicate nearly parallel cameras with minimal rotation between them.
+
+6. Translation Vector (T)
+```text
+[[-0.0707]
+ [ 0.0018]
+ [ 0.0020]]
+```
+Represents the baseline (physical displacement) between cameras. Primary displacement is along X-axis (-0.0707), with minimal Y and Z components.
+
+7. Essential Matrix (E)
+
+```text
+[[ 4.59e-06  -2.07e-03   1.78e-03]
+ [ 2.43e-03  -1.33e-03   7.07e-02]
+ [-2.01e-03  -7.07e-02  -1.31e-03]]
+```
+Encodes the geometric relationship between cameras, combining rotation (R) and translation (T). Used in epipolar geometry calculations.
+
+8. Rectification Matrices (R1, R2)
+```text
+R1:
+[[ 0.9990  -0.0278  -0.0349]
+ [ 0.0281   0.9996   0.0089]
+ [ 0.0346  -0.0098   0.9994]]
+R2:
+[[ 0.9993  -0.0257  -0.0288]
+ [ 0.0255   0.9996  -0.0097]
+ [ 0.0290   0.0090   0.9995]]
+```
+Transform matrices to align images to a common plane. Similar values indicate good initial alignment of cameras.
