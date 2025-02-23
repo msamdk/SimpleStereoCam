@@ -21,7 +21,7 @@ You can follow this youtube channel to understand the mathematics behind camera 
 Checkerboard i used for the calibration - 10x7 squares with 0.25mm size. 
 Print this on a A4 paper and double check the measurement of the square before proceeding to calibration!
 
-<img src="images/Checkerboard-A4-25mm-10x7 (1).jpg" alt="Alt text" width="500">
+<img src="images/Checkerboard-A4-25mm-10x7 (1).jpg" alt="Alt text" width="800">
 
 ## Getting the first video feed from the camera setup
 Here it is important to position your cameras in nearly same horizontal and vertical alignment to prevent any form of calibration errors. 
