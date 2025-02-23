@@ -46,15 +46,14 @@ where:
 - **B** is the baseline distance,
 - **d** is the disparity.
 
-Better depth resolution for distant objects
-Wider field of view
-BUT harder to find corresponding points between images due to larger differences in perspective
-AND larger minimum measurable distance (blind spot close to cameras)
-
+Larger baseline:
+- Better depth resolution for distant objects
+- Wider field of view
+- But harder to find corresponding points between images due to larger differences in perspective
+- AND larger minimum measurable distance (blind spot close to cameras)
 
 Smaller baseline:
-
-Better for measuring depth of closer objects
-Easier to find corresponding points (better matching)
-BUT reduced depth resolution for far objects
-AND more sensitive to calibration errors
+- Better for measuring depth of closer objects
+- Easier to find corresponding points (better matching)
+- BUT reduced depth resolution for far objects
+- AND more sensitive to calibration errors
