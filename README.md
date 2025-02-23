@@ -20,3 +20,4 @@ You can follow this youtube channel to understand the mathematics behind camera 
 
 Checkerboard i used for the calibration - 10x7 squares with 0.25mm size
 
+<img src="images/Checkerboard-A4-25mm-10x7 (1).jpg" alt="Alt text" width="500">
