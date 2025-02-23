@@ -387,10 +387,14 @@ for key in calib_data.files:
 ```
 ### Parameters in the npz file
 
-<div style="border: 1px solid #ccc; padding: 15px; border-radius: 5px;">
+1. Left Camera Intrinsic Matrix (mtx_left)
 
-**Stereo Camera Calibration Parameters**
+```text
+[[454.32  0.00   315.26]
+ [0.00    455.83  172.96]
+ [0.00    0.00    1.00 ]]
+```
+Contains focal lengths (fx, fy) and principal point (cx, cy). fx≈454.32, fy≈455.83 are focal lengths in pixels. (cx≈315.26, cy≈172.96) is the optical center.
 
-**Left Camera Intrinsic Matrix (mtx_left):**  
 
 
