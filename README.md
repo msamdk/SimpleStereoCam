@@ -22,3 +22,25 @@ Checkerboard i used for the calibration - 10x7 squares with 0.25mm size.
 Print this on a A4 paper and double check the measurement of the square before proceeding to calibration!
 
 <img src="images/Checkerboard-A4-25mm-10x7 (1).jpg" alt="Alt text" width="500">
+
+## Getting the first video feed from the camera setup
+Here it is important to position your cameras in nearly same horizontal and vertical alignment to prevent any form of calibration errors. 
+(Note - There are always inaccuracies when using standard consumer webcameras. but if you use industrial grade cameras with hardware synchronization, you can get a very accurate result)
+
+## Baseline distance between the camera's optical centers
+
+When choosing the baseline distance between two cameras, it's essential to consider the application environment—whether you're targeting long-range or short-range depth measurements. The baseline must be optimized for your specific use case.
+
+In stereo vision systems, the baseline (the fixed distance between the two cameras) is key to determining depth accuracy. Objects appear in slightly different positions in the two camera images, a difference called **disparity**. This disparity is used to calculate an object's depth, as described by the equation:
+
+Z = (f * B) / d
+
+
+where:
+- **Z** is the depth,
+- **f** is the focal length,
+- **B** is the baseline distance,
+- **d** is the disparity.
+
+A larger baseline increases disparity for distant objects, improving measurement accuracy, while a smaller baseline is often better for close-range applications.
+
