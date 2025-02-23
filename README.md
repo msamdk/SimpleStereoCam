@@ -226,6 +226,8 @@ In this example i displayed the checkerboard on a display and measured the squar
 
 <img src="images/calibration.jpg" alt="Alt text" width="800">
 
+Here i added 20 calinration captures of the checher board and you can increase it if you need to 30 or 40
+
 ```python
 #stereo calibration
 #determining intrinsic and extrinsic parameters of the camera
@@ -363,5 +365,37 @@ class StereoCalibrator:
 if __name__ == "__main__":
     calibrator = StereoCalibrator(left_id=0, right_id=1)
     calibrator.capture_and_calibrate()
+```
+
+## loading the npz file to check the extrinsic and intrinsic paremeters
+
+```python
+#%%
+#camera parameter check
+import numpy as np
+
+# Load the saved npz file
+calib_data = np.load('stereo_calibration.npz')
+
+# Print the keys (names of the arrays saved in the file)
+print("Saved parameters:", calib_data.files)
+
+# Optionally, print each parameter
+for key in calib_data.files:
+    print(f"{key}:\n", calib_data[key])
+
+```
+### Parameters in the npz file
+
+Left Camera Intrinsic Matrix (`mtx_left`)
+```python
+[[454.32,   0.00, 315.26],
+ [  0.00, 455.83, 172.96],
+ [  0.00,   0.00,   1.00]]
+
+*Contains focal lengths (fx, fy) and principal point (cx, cy).
+
+fx ≈ 454.32, fy ≈ 455.83: focal lengths (in pixels)
+(cx ≈ 315.26, cy ≈ 172.96): optical center*
 ```
 
