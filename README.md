@@ -61,6 +61,7 @@ Smaller baseline:
 
 ## Getting the first video feed from the setup
 
+Check what are the IDs of the cameras of the stereo setup before running the following code
 ```python
 import cv2
 import threading
