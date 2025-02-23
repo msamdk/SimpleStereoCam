@@ -60,6 +60,18 @@ Smaller baseline:
 - BUT reduced depth resolution for far objects
 - AND more sensitive to calibration errors
 
+In this project i have used a classic stereovision approach that estimates depth through stereo matching and triangulation. Here is the basic concept
+1. Stereo matching (semi global block matchin - SGBM)
+The code uses OpenCV’s StereoSGBM_create to compute a disparity map from a pair of rectified images. This step finds corresponding points between the left and right images and measures the difference (disparity) in their positions. 
+
+2. Depth calculation via triangulation.
+Once the disparity is computed, depth is calculated using the formula:
+```text
+depth = (baseline * focal_length) / disparity
+```
+The baseline (distance between the two cameras) and the focal length are extracted from the calibration’s Q matrix. This formula is a direct application of triangulation in stereo vision.
+
+ 
 
 ## Getting the first video feed from the setup
 
