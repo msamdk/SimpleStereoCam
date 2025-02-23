@@ -30,7 +30,7 @@ Here it is important to position your cameras in nearly same horizontal and vert
 (Note - There are always inaccuracies when using standard consumer webcameras. but if you use industrial grade cameras with hardware synchronization, you can get a very accurate result)
 
 
-
+-----------------------------------------------------
 ## Baseline distance between the camera's optical centers
 
 <img src="images/baseline.png" alt="Alt text" width="800">
@@ -74,7 +74,7 @@ depth = (baseline * focal_length) / disparity
 The baseline (distance between the two cameras) and the focal length are extracted from the calibration’s Q matrix. This formula is a direct application of triangulation in stereo vision.
 
  
-
+---------------------------------------------------------------------------------
 ## Getting the first video feed from the setup
 
 Check what are the IDs of the cameras of the stereo setup before running the following code
@@ -234,7 +234,7 @@ if __name__ == "__main__":
         cv2.destroyAllWindows()
 
 ```
-
+----------------------------------------------------
 ## Calibrating the camera
 
 Print your checker board on a A4 paper or A3 paper, and make sure you measure the size of each square as a precaution
