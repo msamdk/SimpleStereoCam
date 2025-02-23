@@ -224,6 +224,8 @@ if __name__ == "__main__":
 Print your checker board on a A4 paper or A3 paper, and make sure you measure the size of each square as a precaution
 In this example i displayed the checkerboard on a display and measured the square size. 
 
+<img src="images/calibration.jpg" alt="Alt text" width="800">
+
 ```python
 #stereo calibration
 #determining intrinsic and extrinsic parameters of the camera
