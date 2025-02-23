@@ -29,6 +29,7 @@ Here it is important to position your cameras in nearly same horizontal and vert
 
 ## Baseline distance between the camera's optical centers
 
+<img src="images/baseline.jpg" alt="Alt text" width="500">
 When choosing the baseline distance between two cameras, it's essential to consider the application environment—whether you're targeting long-range or short-range depth measurements. The baseline must be optimized for your specific use case.
 
 In stereo vision systems, the baseline (the fixed distance between the two cameras) is key to determining depth accuracy. Objects appear in slightly different positions in the two camera images, a difference called **disparity**. This disparity is used to calculate an object's depth, as described by the equation:
