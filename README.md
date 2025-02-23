@@ -60,7 +60,9 @@ Smaller baseline:
 - BUT reduced depth resolution for far objects
 - AND more sensitive to calibration errors
 
+=====================================================================================================================================
 In this project i have used a classic stereovision approach that estimates depth through stereo matching and triangulation. Here is the basic concept
+
 1. Stereo matching (semi global block matchin - SGBM)
 The code uses OpenCV’s StereoSGBM_create to compute a disparity map from a pair of rectified images. This step finds corresponding points between the left and right images and measures the difference (disparity) in their positions. 
 
