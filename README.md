@@ -390,122 +390,102 @@ for key in calib_data.files:
 1. Left Camera Intrinsic Matrix (mtx_left)
 
 ```text
-[[454.32  0.00   315.26]
- [0.00    455.83  172.96]
- [0.00    0.00    1.00 ]]
+[[453.7067342 0. 315.69489572]
+[ 0. 454.75686714 177.02907585]
+[ 0. 0. 1. ]]
 ```
-Contains focal lengths (fx, fy) and principal point (cx, cy). fx≈454.32, fy≈455.83 are focal lengths in pixels. (cx≈315.26, cy≈172.96) is the optical center.
+Contains the intrinsic parameters for the left camera: the focal lengths (fx, fy) and the principal point (cx, cy). Here, fx is approximately 453.71 and fy is approximately 454.76 (in pixels), while the optical center is at (cx ≈ 315.69, cy ≈ 177.03).
 
 2. Left Camera Distortion Coefficients (dist_left)
 ```text
-[[ 0.0462  0.3263  -0.0034  -0.0013  -1.3461]]
+[[ 9.97726550e-02 -2.09933157e-01 -1.09550982e-04 -8.28497132e-04
+3.92894595e-03]]
 ```
-Represents radial (k1≈0.0462, k2≈0.3263, k3≈-1.3461) and tangential (p1≈-0.0034, p2≈-0.0013) distortion coefficients for lens correction.
+Represents the distortion coefficients for the left camera. The first three values are the radial distortion coefficients (k1 ≈ 0.09977, k2 ≈ -0.20993, k3 ≈ 0.00393) and the last two are the tangential distortion coefficients (p1 ≈ -1.09551e-04, p2 ≈ -8.28497e-04).
 
 3. Right camera Intrisic matrix (mtx_right)
 
  ```text
-[[459.07797732   0.         318.22673448]
- [  0.         460.32619966 176.25719036]
- [  0.           0.           1.        ]]
+[[459.07797732 0. 318.22673448]
+[ 0. 460.32619966 176.25719036]
+[ 0. 0. 1. ]]
 ```
+Contains the intrinsic parameters for the right camera. The focal lengths are approximately fx ≈ 459.08 and fy ≈ 460.33 (in pixels), and the optical center is at (cx ≈ 318.23, cy ≈ 176.26).
 
 4. Right camera distortion coefficient (dist_right)
 ```text
- [[ 5.93181767e-02  1.72459459e-01 -5.50332430e-04  2.21879959e-03
-  -8.69918577e-01]]
+ [[ 5.93181767e-02 1.72459459e-01 -5.50332430e-04 2.21879959e-03
+-8.69918577e-01]]
 ```
 5. Rotation Matrix (R)
 ```text
-[[ 0.9999  -0.0026  -0.0056]
- [ 0.0027   0.9998   0.0187]
- [ 0.0055  -0.0188   0.9998]]
+[[ 0.99980893 0.00469472 -0.01897557]
+[-0.00544068 0.99920661 -0.03945302]
+[ 0.01877529 0.03954872 0.99904123]]
 ```
 Describes the rotation between left and right cameras. Values close to identity matrix indicate nearly parallel cameras with minimal rotation between them.
 
 6. Translation Vector (T)
 ```text
-[[-0.0707]
- [ 0.0018]
- [ 0.0020]]
+[[-0.10430442]
+[ 0.00040482]
+[ 0.00237701]]
 ```
-Represents the baseline (physical displacement) between cameras. Primary displacement is along X-axis (-0.0707), with minimal Y and Z components.
+Represents the physical displacement (baseline) between the two cameras. The primary translation is along the X-axis (approximately -0.1043), with minimal displacement in the Y and Z directions.
 
 7. Essential Matrix (E)
 
 ```text
-[[ 4.59e-06  -2.07e-03   1.78e-03]
- [ 2.43e-03  -1.33e-03   7.07e-02]
- [-2.01e-03  -7.07e-02  -1.31e-03]]
+[[ 2.05332099e-05 -2.35911183e-03 4.98215456e-04]
+[ 4.33490001e-03 4.13626586e-03 1.04159313e-01]
+[ 1.62740483e-04 -1.04223568e-01 4.12280615e-03]]
 ```
-Encodes the geometric relationship between cameras, combining rotation (R) and translation (T). Used in epipolar geometry calculations.
+Encodes the combined rotation and translation between the cameras, used in epipolar geometry to relate corresponding points in stereo images.
 
-8. Rectification Matrices (R1, R2)
+8. Fundamental matrix (F)
+
+```text
+[[ 1.79264620e-08 -2.05485995e-06 5.55457498e-04]
+[ 3.77431018e-06 3.59304710e-06 3.93187950e-02]
+[-6.05728130e-04 -4.16553954e-02 1.00000000e+00]]
+```
+Relates corresponding points between the left and right images in pixel coordinates and is used to compute epipolar lines.
+
+9. Rectification Matrices (R1, R2)
 ```text
 R1:
-[[ 0.9990  -0.0278  -0.0349]
- [ 0.0281   0.9996   0.0089]
- [ 0.0346  -0.0098   0.9994]]
+[[ 9.99135231e-01 -8.46341270e-05 -4.15786274e-02]
+[-7.38924786e-04 9.99803856e-01 -1.97914978e-02]
+[ 4.15721470e-02 1.98051062e-02 9.98939195e-01]]
 R2:
-[[ 0.9993  -0.0257  -0.0288]
- [ 0.0255   0.9996  -0.0097]
- [ 0.0290   0.0090   0.9995]]
+[[ 0.9997329 -0.00388014 -0.02278305]
+[ 0.00433057 0.99979548 0.01975457]
+[ 0.02270174 -0.01984796 0.99954524]]
 ```
 Transform matrices to align images to a common plane. Similar values indicate good initial alignment of cameras.
 
-
-
+10. Projection Matrix for Left Camera (P1)
 ```text
-Saved parameters: ['mtx_left', 'dist_left', 'mtx_right', 'dist_right', 'R', 'T', 'E', 'F', 'R1', 'R2', 'P1', 'P2', 'Q']
-mtx_left:
- [[453.7067342    0.         315.69489572]
- [  0.         454.75686714 177.02907585]
- [  0.           0.           1.        ]]
-dist_left:
- [[ 9.97726550e-02 -2.09933157e-01 -1.09550982e-04 -8.28497132e-04
-   3.92894595e-03]]
-mtx_right:
- [[459.07797732   0.         318.22673448]
- [  0.         460.32619966 176.25719036]
- [  0.           0.           1.        ]]
-dist_right:
- [[ 5.93181767e-02  1.72459459e-01 -5.50332430e-04  2.21879959e-03
-  -8.69918577e-01]]
-R:
- [[ 0.99980893  0.00469472 -0.01897557]
- [-0.00544068  0.99920661 -0.03945302]
- [ 0.01877529  0.03954872  0.99904123]]
-T:
- [[-0.10430442]
- [ 0.00040482]
- [ 0.00237701]]
-E:
- [[ 2.05332099e-05 -2.35911183e-03  4.98215456e-04]
- [ 4.33490001e-03  4.13626586e-03  1.04159313e-01]
- [ 1.62740483e-04 -1.04223568e-01  4.12280615e-03]]
-F:
- [[ 1.79264620e-08 -2.05485995e-06  5.55457498e-04]
- [ 3.77431018e-06  3.59304710e-06  3.93187950e-02]
- [-6.05728130e-04 -4.16553954e-02  1.00000000e+00]]
-R1:
- [[ 9.99135231e-01 -8.46341270e-05 -4.15786274e-02]
- [-7.38924786e-04  9.99803856e-01 -1.97914978e-02]
- [ 4.15721470e-02  1.98051062e-02  9.98939195e-01]]
-R2:
- [[ 0.9997329  -0.00388014 -0.02278305]
- [ 0.00433057  0.99979548  0.01975457]
- [ 0.02270174 -0.01984796  0.99954524]]
-P1:
- [[457.5415334    0.         349.83735657   0.        ]
- [  0.         457.5415334  177.79261017   0.        ]
- [  0.           0.           1.           0.        ]]
-P2:
- [[457.5415334    0.         349.83735657 -47.73635512]
- [  0.         457.5415334  177.79261017   0.        ]
- [  0.           0.           1.           0.        ]]
-Q:
- [[   1.            0.            0.         -349.83735657]
- [   0.            1.            0.         -177.79261017]
- [   0.            0.            0.          457.5415334 ]
- [   0.            0.            9.58476055   -0.        ]]
+[[457.5415334 0. 349.83735657 0. ]
+[ 0. 457.5415334 177.79261017 0. ]
+[ 0. 0. 1. 0. ]]
 ```
+Projects 3D points onto the rectified image plane of the left camera by combining intrinsic parameters with the rectification transformation.
+
+11. Projection Matrix for Right Camera (P2)
+```text
+[[457.5415334 0. 349.83735657 -47.73635512]
+[ 0. 457.5415334 177.79261017 0. ]
+[ 0. 0. 1. 0. ]]
+```
+Projects 3D points onto the rectified image plane of the right camera. The offset in the last column accounts for the baseline between the cameras.
+
+12. Disparity-to-Depth Mapping Matrix (Q)
+
+```test
+[[ 1. 0. 0. -349.83735657]
+[ 0. 1. 0. -177.79261017]
+[ 0. 0. 0. 457.5415334 ]
+[ 0. 0. 9.58476055 -0. ]]
+```
+Reprojects the disparity map into 3D space, converting disparity values into real-world coordinates for depth estimation.
