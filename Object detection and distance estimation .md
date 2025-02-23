@@ -1,6 +1,7 @@
 # Stereo object detector and depth estimation
 
 In this example i have used yolov8 model for the object detection
+In here i used a pre trained yolo model which used COCO dataset for 80 object classes. You can use a model which is trained on a custom dataset and extend this experiment to your application if needed.
 
 ```python
 
