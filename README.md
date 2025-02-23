@@ -14,5 +14,5 @@ In the project i used two identical Microsoft modern webcams. I designed a frame
 You can follow this youtube channel to understand the mathematics behind camera calibration which is highly important to understand the extrinsic and intrinsic parameters of the camera
 
 
-[![My YouTube Channel](images/calb.png)](https://www.youtube.com/channel/UC1234567890)
+[![My YouTube Channel](images/calb.png)]([https://www.youtube.com/channel/UC1234567890](https://youtu.be/S-UHiFsn-GI?si=R0F8bszco6bF61mg))
 
